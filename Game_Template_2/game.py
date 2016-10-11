@@ -243,7 +243,7 @@ def execute_go(direction):
         print("You cannot go there.")
 
 
-def execute_take(items_id):
+def execute_take(item_id):
     """This function takes an item_id as an argument and moves this item from the
     list of items in the current room to the player's inventory. However, if
     there is no such item in the room, this function prints
@@ -251,37 +251,14 @@ def execute_take(items_id):
     """
     global mass
 
-    if any(d["id"] == items_id for d in current_room["items"]):
-        if items_id == "id":
-            inventory.append(item_id)
-            current_room["items"].remove(item_id)
-            mass += item_id["mass"]
-            print(items_id + " taken.")
-        elif items_id == "laptop":
-            inventory.append(item_laptop)
-            current_room["items"].remove(item_laptop)
-            mass += item_laptop["mass"]
-            print(items_id + " taken.")
-        elif items_id == "money":
-            inventory.append(item_money)
-            current_room["items"].remove(item_money)
-            mass += item_money["mass"]
-            print(items_id + " taken.")
-        elif items_id == "biscuits":
-            inventory.append(item_biscuits)
-            current_room["items"].remove(item_biscuits)
-            mass += item_biscuits["mass"]
-            print(items_id + " taken.")
-        elif items_id == "pen":
-            inventory.append(item_pen)
-            current_room["items"].remove(item_pen)
-            mass += item_pen["mass"]
-            print(items_id + " taken.")
-        elif items_id == "handbook":
-            inventory.append(item_handbook)
-            current_room["items"].remove(item_handbook)
-            mass += item_handbook["mass"]
-            print(items_id + " taken.")
+    if any(d["id"] == item_id for d in current_room["items"]):
+        for i in range(len(current_room["items"])):
+            
+            if item_id == current_room["items"][i]["id"]:
+                inventory.append(current_room["items"][i])
+                (current_room["items"]).remove(current_room["items"][i])
+                print(item_id + " taken.")
+                break
 
     else:
         print("You cannot take that.")
@@ -291,44 +268,21 @@ def execute_take(items_id):
         execute_drop(items_id)
     
 
-def execute_drop(items_id):
+def execute_drop(item_id):
     """This function takes an item_id as an argument and moves this item from the
     player's inventory to list of items in the current room. However, if there is
     no such item in the inventory, this function prints "You cannot drop that."
     """
     global mass
 
-    if any(d["id"] == items_id for d in inventory):
-        if items_id == "id":
-            inventory.remove(item_id)
-            current_room["items"].append(item_id)
-            mass -= item_id["mass"]
-            print(items_id + " dropped.")
-        elif items_id == "laptop":
-            inventory.remove(item_laptop)
-            current_room["items"].append(item_laptop)
-            mass -= item_laptop["mass"]
-            print(items_id + " dropped.")
-        elif items_id == "money":
-            inventory.remove(item_money)
-            current_room["items"].append(item_money)
-            mass -= item_money["mass"]
-            print(items_id + " dropped.")
-        elif items_id == "biscuits":
-            inventory.remove(item_biscuits)
-            current_room["items"].append(item_biscuits)
-            mass -= item_biscuits["mass"]
-            print(items_id + " dropped.")
-        elif items_id == "pen":
-            inventory.remove(item_pen)
-            current_room["items"].append(item_pen)
-            mass -= item_pen["mass"]
-            print(items_id + " dropped.")
-        elif items_id == "handbook":
-            inventory.remove(item_handbook)
-            current_room["items"].append(item_handbook)
-            mass -= item_handbook["mass"]
-            print(items_id + " dropped.")
+    if any(d["id"] == item_id for d in inventory):
+        for i in range(len(inventory)):
+
+            if item_id == inventory[i]["id"]:
+                (current_room["items"]).append(inventory[i])
+                inventory.remove(inventory[i])
+                print(item_id + " dropped.")
+                break
 
     else:
         print("You cannot drop that.")
